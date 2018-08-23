@@ -51,11 +51,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6C7-AS-6Li">
+                                <rect key="frame" x="166.5" y="311" width="42" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ut5-W8-02Q"/>
+                                </constraints>
+                                <state key="normal" title="Today"/>
+                                <connections>
+                                    <action selector="scrollToToday" destination="BYZ-38-t0r" eventType="touchUpInside" id="scj-qj-mCm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Tbp-Wx-b4L" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1bM-07-yvh"/>
+                            <constraint firstItem="6C7-AS-6Li" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="291" id="4KP-5r-Zph"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tbp-Wx-b4L" secondAttribute="trailing" id="5aj-Q5-iQu"/>
+                            <constraint firstItem="6C7-AS-6Li" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aHR-gV-yOT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tbp-Wx-b4L" secondAttribute="bottom" id="hkb-Ua-f1F"/>
                             <constraint firstItem="Tbp-Wx-b4L" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jgT-9K-g1I"/>
                         </constraints>
@@ -63,6 +75,8 @@
                     </view>
                     <connections>
                         <outlet property="calendarTable" destination="Tbp-Wx-b4L" id="giB-n9-ao2"/>
+                        <outlet property="todayButton" destination="6C7-AS-6Li" id="7yB-8d-7WP"/>
+                        <outlet property="todayButtonTopConstraint" destination="4KP-5r-Zph" id="2CS-CS-TQE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
