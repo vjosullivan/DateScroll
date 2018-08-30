@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        todayButton.imageView?.contentMode = .scaleAspectFit
         
         monthFormatter.dateFormat = "MMMM"
         dayFormatter.dateFormat = "d"
@@ -42,7 +43,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let date = dateForRow(indexPath.row)
         dateCell.month.text = date.month
         dateCell.dayOfMonth.text = date.day
-        dateCell.backgroundColor = indexPath.row % 2 == 0 ? .green : .yellow
+        switch true {
+        case indexPath.row % 2 == 0:
+            dateCell.backgroundColor = UIColor(red: 0.0, green: 36.0/255.0, blue: 102.0/255.0, alpha: 1.0)
+        case indexPath.row == todayRow:
+            dateCell.backgroundColor = UIColor(red: 0.0, green: 72.0/255.0, blue: 166.0/255.0, alpha: 1.0)
+        default:
+            dateCell.backgroundColor = UIColor(red: 0.0, green: 48.0/255.0, blue: 132.0/255.0, alpha: 1.0)
+        }
         return dateCell
     }
     
@@ -50,27 +58,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         guard let visiblePaths = calendarTable.indexPathsForVisibleRows else { return }
         
         if visiblePaths.contains(todayIndexPath) {
-            todayButton.isHidden = true
+            todayButton.fadeOut()
         } else {
-            print(visiblePaths[0][1])
             setTodayButtonPosition(row: visiblePaths[0][1])
-            todayButton.isHidden = false
+            todayButton.fadeIn()
         }
     }
     
     private func setTodayButtonPosition(row: Int) {
         
         if row < todayRow {
-            todayButtonTopConstraint.constant = todayButton.frame.height
-            todayButton.setTitle("Up to today", for: .normal)
-        } else {
-            let height = view.safeAreaLayoutGuide.layoutFrame.size.height - 2 * todayButton.frame.height
+            let height = view.safeAreaLayoutGuide.layoutFrame.size.height - 1.5 * todayButton.frame.height
             todayButtonTopConstraint.constant = height
-            todayButton.setTitle("Down to today", for: .normal)
+            todayButton.setImage(UIImage(named: "arrowDown"), for: .normal)
+        } else {
+            todayButtonTopConstraint.constant = 0.5 * todayButton.frame.height
+            todayButton.setImage(UIImage(named: "arrowUp"), for: .normal)
         }
         view.layoutIfNeeded()
     }
-    
+
     @IBAction func scrollToToday() {
         calendarTable.scrollToRow(at: todayIndexPath, at: UITableView.ScrollPosition.top, animated: true)
     }
@@ -85,4 +92,3 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return (month: monthFormatter.string(from: rowDate), day: dayFormatter.string(from: rowDate))
     }
 }
-
